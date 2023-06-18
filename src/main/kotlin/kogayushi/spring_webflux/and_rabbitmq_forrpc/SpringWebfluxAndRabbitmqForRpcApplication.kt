@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class SpringWebfluxAndRabbitmqForRpcApplication
 
 fun main(args: Array<String>) {
-	runApplication<SpringWebfluxAndRabbitmqForRpcApplication>(*args)
+    runApplication<SpringWebfluxAndRabbitmqForRpcApplication>(*args)
 }
