@@ -5,6 +5,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.0'
     id 'org.jetbrains.kotlin.jvm' version '1.8.21'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.8.21'
+    id 'scala' // for gatling
+    id 'io.gatling.gradle' version "3.9.5"
 }
 
 group = 'kogayushi'
@@ -37,6 +39,19 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
+    // for m1 mac
+    final String osName = java.util.Optional.ofNullable(System.getProperty("os.name")).orElse("")
+    final String osArch = java.util.Optional.ofNullable(System.getProperty("os.arch")).orElse("")
+    final String taskName = project.gradle.startParameter.getTaskNames().isEmpty()
+            ? ""
+            : java.util.Optional.ofNullable(project.gradle.startParameter.getTaskNames().first()).orElse("")
+    if (osName.startsWith("Mac OS X")
+            && osArch == "aarch64"
+            && !taskName.contains("bootBuildImage")
+    ) {
+        implementation 'io.netty:netty-resolver-dns-native-macos::osx-aarch_64'
+    }
 }
 
 tasks.withType(KotlinCompile) {
