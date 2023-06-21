@@ -1,6 +1,6 @@
 package kogayushi.spring_webflux.and_rabbitmq_forrpc
 
-import kogayushi.spring_webflux.and_rabbitmq_forrpc.RabbitMQConfig.Companion.BYTE_COUNT
+import kogayushi.spring_webflux.and_rabbitmq_forrpc.RabbitMQConfig.Companion.LEADING_CHARACTER_COUNT
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -26,6 +26,19 @@ class DemoController(
         Thread.sleep(250L)
 
         return "Hello, World!"
+    }
+
+    @GetMapping("/rpc")
+    fun rpc(): Mono<String> {
+
+        return Mono.fromCallable {
+
+            val entityId = UUID.randomUUID().toString()
+
+            val response = rabbitTemplate.convertSendAndReceive("demo.exchange", "hoge.${entityId.take(LEADING_CHARACTER_COUNT)}", "Hello, World!") as? String
+
+            response ?: "No response"
+        }
     }
 }
 
