@@ -1,3 +1,9 @@
+spring:
+  rabbitmq:
+    username: admin
+    password: admin
+    virtual-host: /
+    host: localhost
 demo:
   applications:
     - hoge
