@@ -1,0 +1,4 @@
+demo:
+  applications:
+    - hoge
+    - fuga
