@@ -4,6 +4,9 @@ spring:
     password: admin
     virtual-host: /
     host: localhost
+    listener:
+      type: DIRECT
+
 demo:
   applications:
     - hoge
