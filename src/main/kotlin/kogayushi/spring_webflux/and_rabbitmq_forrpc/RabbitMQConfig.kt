@@ -5,12 +5,15 @@ import org.springframework.amqp.core.Binding
 import org.springframework.amqp.core.BindingBuilder
 import org.springframework.amqp.core.Queue
 import org.springframework.amqp.core.TopicExchange
+import org.springframework.amqp.rabbit.AsyncRabbitTemplate
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 
 @Configuration
 class RabbitMQConfig(
+    private val rabbitTemplate: RabbitTemplate,
     private val amqpAdmin: AmqpAdmin,
     private val demoProperties: DemoProperties,
 ) {
@@ -72,6 +75,11 @@ class RabbitMQConfig(
         }
 
         return bindings
+    }
+
+    @Bean
+    fun asyncRabbitTemplate(): AsyncRabbitTemplate {
+        return AsyncRabbitTemplate(rabbitTemplate)
     }
 }
 
