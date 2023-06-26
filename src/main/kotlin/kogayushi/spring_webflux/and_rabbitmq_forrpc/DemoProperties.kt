@@ -6,7 +6,12 @@ import org.springframework.stereotype.Component
 
 @Component
 @ConfigurationProperties(prefix = "demo")
-class DemoProperties(
+data class DemoProperties(
     @field: NotEmpty
-    val applications: List<String>
+    val appnameAndLeadingCharacterCount: List<AppnameAndLeadingCharacterCount>,
+)
+
+data class AppnameAndLeadingCharacterCount(
+    val appname: String,
+    val leadingCharacterCount: Int,
 )

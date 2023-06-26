@@ -8,6 +8,8 @@ spring:
       type: SIMPLE
 
 demo:
-  applications:
-    - hoge
-    - fuga
+  appnameAndLeadingCharacterCount:
+    - appname: hoge
+      leadingCharacterCount: 1
+    - appname: default
+      leadingCharacterCount: 2

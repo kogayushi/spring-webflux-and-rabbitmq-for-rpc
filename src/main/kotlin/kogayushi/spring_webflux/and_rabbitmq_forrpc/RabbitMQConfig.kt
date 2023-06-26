@@ -35,11 +35,11 @@ class RabbitMQConfig(
     // for load balancing, define destination queues using the leading characters of the UUID.
     @Bean
     fun queues(): List<Queue> {
-        val queues = demoProperties.applications.flatMap { application ->
-            val combinations = generateHexCharacterCombinations(HEX_CHARACTER_SET, "", LEADING_CHARACTER_COUNT)
+        val queues = demoProperties.appnameAndLeadingCharacterCount.flatMap { application ->
+            val combinations = generateHexCharacterCombinations(HEX_CHARACTER_SET, "", application.leadingCharacterCount)
 
             combinations.map { aCombination ->
-                Queue("$application.$aCombination", true, false, true)
+                Queue("${application.appname}.$aCombination", true, false, true)
             }
 
         }
